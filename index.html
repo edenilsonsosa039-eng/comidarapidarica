@@ -1,0 +1,1262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🍔 FastFood Express</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#fff5e6;
+    color:#333;
+}
+
+/* LOGIN */
+
+#login{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff512f,#dd2476);
+    padding:20px;
+}
+
+.login-box{
+    background:white;
+    width:100%;
+    max-width:420px;
+    padding:35px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 10px 30px #555;
+}
+
+.login-box h1{
+    color:#e63900;
+    font-size:35px;
+    margin-bottom:10px;
+}
+
+.login-box p{
+    color:#666;
+    margin-bottom:25px;
+}
+
+.login-box input{
+    width:100%;
+    padding:14px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:16px;
+}
+
+.login-box button{
+    width:100%;
+    background:#ff4b2b;
+    color:white;
+    border:0;
+    padding:14px;
+    margin-top:15px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:16px;
+}
+
+.login-box button:hover{
+    background:#c92d16;
+}
+
+#error{
+    color:red;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+/* SITIO */
+
+#sitio{
+    display:none;
+}
+
+header{
+    background:linear-gradient(135deg,#ff512f,#dd2476);
+    color:white;
+    text-align:center;
+    padding:45px 20px;
+}
+
+header h1{
+    font-size:45px;
+}
+
+header p{
+    font-size:20px;
+    margin-top:10px;
+}
+
+.usuario{
+    margin-top:15px;
+}
+
+nav{
+    background:#222;
+    text-align:center;
+    padding:15px;
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin:0 12px;
+    font-weight:bold;
+}
+
+nav button{
+    background:#e63900;
+    color:white;
+    border:0;
+    padding:9px 15px;
+    border-radius:20px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.oferta{
+    background:#ffcc00;
+    text-align:center;
+    padding:18px;
+    font-weight:bold;
+    font-size:20px;
+}
+
+/* VIDEO */
+
+.video-seccion{
+    text-align:center;
+    padding:40px 7%;
+}
+
+.video-seccion h2{
+    color:#e63900;
+    margin-bottom:20px;
+}
+
+.video-seccion video{
+    width:100%;
+    max-width:900px;
+    border-radius:20px;
+    box-shadow:0 5px 20px #888;
+}
+
+/* BUSCADOR */
+
+.busqueda{
+    text-align:center;
+    padding:25px;
+}
+
+.busqueda input{
+    width:90%;
+    max-width:600px;
+    padding:15px;
+    border:2px solid #ff4b2b;
+    border-radius:30px;
+    font-size:16px;
+}
+
+/* CATEGORIAS */
+
+.categorias{
+    text-align:center;
+    padding:15px;
+}
+
+.categorias button{
+    background:#222;
+    color:white;
+    border:0;
+    padding:10px 18px;
+    margin:5px;
+    border-radius:20px;
+    cursor:pointer;
+}
+
+.categorias button:hover{
+    background:#ff4b2b;
+}
+
+/* MENU */
+
+.titulo{
+    text-align:center;
+    margin:30px 0 20px;
+    color:#e63900;
+}
+
+.menu{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:25px;
+    padding:20px 7%;
+}
+
+.producto{
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    text-align:center;
+    box-shadow:0 5px 15px #bbb;
+    transition:.3s;
+}
+
+.producto:hover{
+    transform:translateY(-8px);
+}
+
+.producto img{
+    width:100%;
+    height:180px;
+    object-fit:cover;
+}
+
+.producto h3{
+    margin:15px 0 8px;
+}
+
+.producto p{
+    padding:0 15px;
+}
+
+.precio{
+    color:#e63900;
+    font-size:23px;
+    font-weight:bold;
+    margin:12px;
+}
+
+.producto button{
+    background:#ff4b2b;
+    color:white;
+    border:0;
+    padding:12px 20px;
+    margin:10px 0 20px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.producto button:hover{
+    background:#c92d16;
+}
+
+/* PROMOCIONES */
+
+.promos{
+    background:#222;
+    color:white;
+    margin:40px 7%;
+    padding:30px;
+    border-radius:20px;
+    text-align:center;
+}
+
+.promos h2{
+    color:#ffcc00;
+    margin-bottom:20px;
+}
+
+.promos div{
+    background:#333;
+    padding:15px;
+    margin:10px;
+    border-radius:12px;
+}
+
+/* CARRITO */
+
+#carrito{
+    background:#222;
+    color:white;
+    margin:40px auto;
+    padding:30px;
+    max-width:700px;
+    border-radius:20px;
+    box-shadow:0 5px 20px #888;
+}
+
+#carrito h2{
+    color:#ffcc00;
+    margin-bottom:20px;
+}
+
+.contador{
+    background:#ff4b2b;
+    padding:8px 15px;
+    border-radius:20px;
+    display:inline-block;
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
+#lista p{
+    background:#333;
+    padding:10px;
+    margin:7px 0;
+    border-radius:8px;
+}
+
+#total{
+    color:#ffcc00;
+    font-size:25px;
+    font-weight:bold;
+    margin:20px 0;
+}
+
+.entrega{
+    background:white;
+    color:#333;
+    padding:20px;
+    border-radius:15px;
+    margin:20px 0;
+}
+
+.entrega h3{
+    margin-bottom:15px;
+}
+
+.opcion{
+    display:block;
+    background:#f5f5f5;
+    padding:15px;
+    margin:10px 0;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.opcion:hover{
+    background:#ffe0d6;
+}
+
+#direccion{
+    display:none;
+    margin-top:15px;
+}
+
+#direccion input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.carrito-btn{
+    background:#ff4b2b;
+    color:white;
+    border:0;
+    padding:12px 20px;
+    margin:10px 5px;
+    border-radius:25px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+/* INFORMACION */
+
+.info{
+    padding:40px 7%;
+    text-align:center;
+}
+
+.info h2{
+    color:#e63900;
+    margin-bottom:20px;
+}
+
+.info-contenedor{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.info-card{
+    background:white;
+    padding:25px;
+    border-radius:18px;
+    box-shadow:0 5px 15px #ccc;
+}
+
+.info-card h3{
+    margin-bottom:10px;
+    color:#e63900;
+}
+
+/* FOOTER */
+
+footer{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:30px;
+    margin-top:50px;
+}
+
+footer p{
+    margin:8px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:600px){
+
+    header h1{
+        font-size:32px;
+    }
+
+    nav a{
+        display:inline-block;
+        margin:5px;
+    }
+
+    .oferta{
+        font-size:16px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="login">
+
+    <div class="login-box">
+
+        <h1>🍔 FastFood Express</h1>
+
+        <p>Inicia sesión para entrar</p>
+
+        <input
+            type="email"
+            id="correo"
+            placeholder="📧 Correo electrónico"
+        >
+
+        <input
+            type="password"
+            id="password"
+            placeholder="🔑 Contraseña"
+        >
+
+        <button onclick="iniciarSesion()">
+            🚀 Iniciar Sesión
+        </button>
+
+        <div id="error"></div>
+
+    </div>
+
+</div>
+
+
+<!-- SITIO -->
+
+<div id="sitio">
+
+<header>
+
+    <h1>🍔🔥 FastFood Express</h1>
+
+    <p>El sabor que te hace volver 😋</p>
+
+    <div class="usuario">
+        👤 Usuario: <span id="usuario"></span>
+    </div>
+
+</header>
+
+
+<nav>
+
+    <a href="#inicio">🏠 Inicio</a>
+
+    <a href="#menu">🍔 Menú</a>
+
+    <a href="#promos">🔥 Promos</a>
+
+    <a href="#carrito">🛒 Carrito</a>
+
+    <a href="#contacto">📞 Contacto</a>
+
+    <button onclick="cerrarSesion()">
+        🚪 Salir
+    </button>
+
+</nav>
+
+
+<div class="oferta">
+    🔥 ¡OFERTA ESPECIAL! Comida deliciosa al mejor precio 🔥
+</div>
+
+
+<!-- VIDEO -->
+
+<section class="video-seccion" id="inicio">
+
+    <h2>🎬 Conoce FastFood Express</h2>
+
+    <video controls poster="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=900">
+
+        <source src="video.mp4" type="video/mp4">
+
+        Tu navegador no puede reproducir este video.
+
+    </video>
+
+    <p style="margin-top:15px;">
+        🍔 Mira nuestro video y descubre todo lo que tenemos para ti.
+    </p>
+
+</section>
+
+
+<!-- BUSCADOR -->
+
+<div class="busqueda">
+
+    <input
+        type="text"
+        id="buscar"
+        placeholder="🔎 Buscar comida..."
+        onkeyup="buscarProducto()"
+    >
+
+</div>
+
+
+<!-- CATEGORIAS -->
+
+<div class="categorias">
+
+    <button onclick="filtrar('todos')">
+        🍽️ Todos
+    </button>
+
+    <button onclick="filtrar('comida')">
+        🍔 Comida
+    </button>
+
+    <button onclick="filtrar('postre')">
+        🍩 Postres
+    </button>
+
+    <button onclick="filtrar('bebida')">
+        🥤 Bebidas
+    </button>
+
+</div>
+
+
+<h2 class="titulo" id="menu">
+    🍽️ Nuestro Menú
+</h2>
+
+
+<div class="menu" id="productos">
+
+
+    <div class="producto" data-categoria="comida">
+
+        <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600">
+
+        <h3>🍔 Hamburguesa</h3>
+
+        <p>Carne, queso, lechuga y tomate.</p>
+
+        <div class="precio">$4.50</div>
+
+        <button onclick="agregar('Hamburguesa',4.50)">
+            🛒 Agregar
+        </button>
+
+    </div>
+
+
+    <div class="producto" data-categoria="comida">
+
+        <img src="https://images.unsplash.com/photo-1579751626657-72bc17010498?w=600">
+
+        <h3>🍕 Pizza</h3>
+
+        <p>Queso y pepperoni.</p>
+
+        <div class="precio">$6.00</div>
+
+        <button onclick="agregar('Pizza',6)">
+            🛒 Agregar
+        </button>
+
+    </div>
+
+
+    <div class="producto" data-categoria="comida">
+
+        <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600">
+
+        <h3>🍟 Papas Fritas</h3>
+
+        <p>Papas crujientes con salsa.</p>
+
+        <div class="precio">$2.50</div>
+
+        <button onclick="agregar('Papas Fritas',2.50)">
+            🛒 Agregar
+        </button>
+
+    </div>
+
+
+    <div class="producto" data-categoria="comida">
+
+        <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?w=600">
+
+        <h3>🍗 Nuggets</h3>
+
+        <p>Nuggets de pollo con salsa.</p>
+
+        <div class="precio">$3.50</div>
+
+        <button onclick="agregar('Nuggets',3.50)">
+            🛒 Agregar
+        </button>
+
+    </div>
+
+
+    <div class="producto" data-categoria="comida">
+
+        <img src="https://images.unsplash.com/photo-1612392062631-94dd858cba88?w=600">
+
+        <h3>🌭 Hot Dog</h3>
+
+        <p>Salchicha con queso y salsas.</p>
+
+        <div class="precio">$3.00</div>
+
+        <button onclick="agregar('Hot Dog',3)">
+            🛒 Agregar
+        </button>
+
+    </div>
+
+
+    <div class="producto" data-categoria="comida">
+
+        <img src="https://images.unsplash.com/photo-1521305916504-4a1121188589?w=600">
+
+        <h3>🥪sandwich de pollo🍗</h3>
+
+        <p>sandwich de pollo vegetales.</p>
+
+        <div class="precio">$4.00</div>
+
+        <button onclick="agregar('Tacos',4)">
+            🛒 Agregar
+        </button>
+
+    </div>
+
+
+    <div class="producto" data-categoria="postre">
+
+        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=600">
+      
+         <h3>🍦Helado</h3>
+        <p>Helado dulces de diferentes sabores.</p>
+
+        <div class="precio">$2.00</div>
+
+        <button onclick="agregar('Donas',2)">
+            🛒 Agregar
+        </button>
+
+    </div>
+
+
+    <div class="producto" data-categoria="postre">
+
+        <img src="https://images.unsplash.com/photo-1579954115545-a95591f28bfc?w=600">
+
+        <h3>🥤 licuado</h3>
+
+        <p>licuado con deliciosos toppings.</p>
+
+        <div class="precio">$2.50</div>
+
+        <button onclick="agregar('Helado',2.50)">
+            🛒 Agregar
+        </button>
+
+    </div>
+
+
+    <div class="producto" data-categoria="bebida">
+
+        <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600">
+
+        <h3>🥤 Refresco</h3>
+
+        <p>Refresco frío de diferentes sabores.</p>
+
+        <div class="precio">$1.50</div>
+
+        <button onclick="agregar('Refresco',1.50)">
+            🛒 Agregar
+        </button>
+
+    </div>
+
+
+    <div class="producto" data-categoria="bebida">
+
+        <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600">
+
+        <h3>☕ Café</h3>
+
+        <p>Café caliente y delicioso.</p>
+
+        <div class="precio">$2.00</div>
+
+        <button onclick="agregar('Café',2)">
+            🛒 Agregar
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- PROMOCIONES -->
+
+<section class="promos" id="promos">
+
+    <h2>🔥 Promociones Especiales</h2>
+
+    <div>
+        🍔 Combo Hamburguesa + Papas + Refresco
+        <br>
+        <strong>$7.00</strong>
+    </div>
+
+    <div>
+        🍕 Pizza familiar + 2 refrescos
+        <br>
+        <strong>$10.00</strong>
+    </div>
+
+    <div>
+        🌮 3 Tacos + Refresco
+        <br>
+        <strong>$5.00</strong>
+    </div>
+
+</section>
+
+
+<!-- CARRITO -->
+
+<div id="carrito">
+
+    <h2>🛒 Mi Carrito</h2>
+
+    <div class="contador">
+        Productos: <span id="cantidad">0</span>
+    </div>
+
+    <div id="lista">
+
+        <p>Tu carrito está vacío 😢</p>
+
+    </div>
+
+    <div id="total">
+        Total: $0.00
+    </div>
+
+
+    <div class="entrega">
+
+        <h3>🚚 ¿Cómo quieres recibir tu pedido?</h3>
+
+        <label class="opcion">
+
+            <input
+                type="radio"
+                name="entrega"
+                value="Envío a domicilio"
+                onclick="mostrarDireccion()"
+            >
+
+            🚚 Envío a domicilio
+
+        </label>
+
+
+        <label class="opcion">
+
+            <input
+                type="radio"
+                name="entrega"
+                value="Recoger en el local"
+                onclick="ocultarDireccion()"
+            >
+
+            🏪 Recoger en el local
+
+        </label>
+
+
+        <div id="direccion">
+
+            <h4>📍 Dirección de entrega</h4>
+
+            <br>
+
+            <input
+                type="text"
+                id="direccionTexto"
+                placeholder="Escribe tu dirección"
+            >
+
+        </div>
+
+    </div>
+
+
+    <button class="carrito-btn" onclick="comprar()">
+        ✅ Realizar Pedido
+    </button>
+
+    <button class="carrito-btn" onclick="vaciar()">
+        🗑️ Vaciar Carrito
+    </button>
+
+</div>
+
+
+<!-- INFORMACION -->
+
+<section class="info">
+
+    <h2>⭐ ¿Por qué elegir FastFood Express?</h2>
+
+    <div class="info-contenedor">
+
+        <div class="info-card">
+
+            <h3>⚡ Rápido</h3>
+
+            <p>
+                Preparamos tus pedidos rápidamente
+                para que disfrutes tu comida.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>🍔 Calidad</h3>
+
+            <p>
+                Utilizamos ingredientes seleccionados
+                para ofrecerte buen sabor.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>🚚 Entrega</h3>
+
+            <p>
+                Puedes pedir tu comida para llevar
+                o recibirla a domicilio.
+            </p>
+
+        </div>
+
+
+        <div class="info-card">
+
+            <h3>❤️ Servicio</h3>
+
+            <p>
+                Queremos que tengas una excelente
+                experiencia en FastFood Express.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer id="contacto">
+
+    <h2>📞 FastFood Express</h2>
+
+    <p>Gracias por visitarnos ❤️</p>
+
+    <p>📱 WhatsApp: 7000-0000</p>
+
+    <p>📍 El Salvador</p>
+
+    <p>🍔 ¡Vuelve pronto!</p>
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* LOGIN */
+
+function iniciarSesion(){
+
+    let correo =
+        document.getElementById("correo").value.trim();
+
+    let password =
+        document.getElementById("password").value;
+
+    let error =
+        document.getElementById("error");
+
+
+    if(correo === ""){
+
+        error.textContent =
+            "⚠️ Escribe tu correo.";
+
+        return;
+    }
+
+
+    if(!correo.includes("@") ||
+       !correo.includes(".")){
+
+        error.textContent =
+            "⚠️ Escribe un correo válido.";
+
+        return;
+    }
+
+
+    if(password.length < 4){
+
+        error.textContent =
+            "⚠️ La contraseña debe tener mínimo 4 caracteres.";
+
+        return;
+    }
+
+
+    localStorage.setItem("sesion","activa");
+
+    localStorage.setItem("correo",correo);
+
+    mostrarSitio();
+
+}
+
+
+function mostrarSitio(){
+
+    document.getElementById("login").style.display =
+        "none";
+
+    document.getElementById("sitio").style.display =
+        "block";
+
+    document.getElementById("usuario").textContent =
+        localStorage.getItem("correo");
+
+}
+
+
+function cerrarSesion(){
+
+    localStorage.removeItem("sesion");
+
+    localStorage.removeItem("correo");
+
+    location.reload();
+
+}
+
+
+if(localStorage.getItem("sesion") === "activa"){
+
+    mostrarSitio();
+
+}
+
+
+/* CARRITO */
+
+let total = 0;
+
+let productos = [];
+
+
+function agregar(nombre,precio){
+
+    productos.push({
+
+        nombre:nombre,
+
+        precio:precio
+
+    });
+
+
+    total += precio;
+
+    mostrarCarrito();
+
+}
+
+
+function mostrarCarrito(){
+
+    let lista =
+        document.getElementById("lista");
+
+    lista.innerHTML = "";
+
+
+    productos.forEach(function(producto){
+
+        let item =
+            document.createElement("p");
+
+        item.textContent =
+            "🍽️ " +
+            producto.nombre +
+            " - $" +
+            producto.precio.toFixed(2);
+
+        lista.appendChild(item);
+
+    });
+
+
+    document.getElementById("total").textContent =
+        "Total: $" +
+        total.toFixed(2);
+
+
+    document.getElementById("cantidad").textContent =
+        productos.length;
+
+}
+
+
+function mostrarDireccion(){
+
+    document.getElementById("direccion")
+        .style.display = "block";
+
+}
+
+
+function ocultarDireccion(){
+
+    document.getElementById("direccion")
+        .style.display = "none";
+
+}
+
+
+function vaciar(){
+
+    productos = [];
+
+    total = 0;
+
+
+    document.getElementById("lista").innerHTML =
+        "<p>Tu carrito está vacío 😢</p>";
+
+
+    document.getElementById("total").textContent =
+        "Total: $0.00";
+
+
+    document.getElementById("cantidad").textContent =
+        "0";
+
+}
+
+
+function comprar(){
+
+    if(productos.length === 0){
+
+        alert(
+            "⚠️ Primero agrega algún producto."
+        );
+
+        return;
+
+    }
+
+
+    let entrega =
+        document.querySelector(
+            'input[name="entrega"]:checked'
+        );
+
+
+    if(!entrega){
+
+        alert(
+            "⚠️ Selecciona cómo quieres recibir tu pedido."
+        );
+
+        return;
+
+    }
+
+
+    if(entrega.value === "Envío a domicilio"){
+
+        let direccion =
+            document.getElementById(
+                "direccionTexto"
+            ).value.trim();
+
+
+        if(direccion === ""){
+
+            alert(
+                "⚠️ Escribe tu dirección."
+            );
+
+            return;
+
+        }
+
+
+        alert(
+            "🎉 ¡Pedido realizado!\n\n" +
+            "🚚 Método: Envío a domicilio\n" +
+            "📍 Dirección: " + direccion + "\n" +
+            "💰 Total: $" +
+            total.toFixed(2) +
+            "\n\n❤️ ¡Gracias por comprar!"
+        );
+
+
+    }else{
+
+        alert(
+            "🎉 ¡Pedido realizado!\n\n" +
+            "🏪 Método: Recoger en el local\n" +
+            "💰 Total: $" +
+            total.toFixed(2) +
+            "\n\n📍 Te esperamos en nuestro local ❤️"
+        );
+
+    }
+
+
+    vaciar();
+
+}
+
+
+/* BUSCADOR */
+
+function buscarProducto(){
+
+    let texto =
+        document.getElementById("buscar")
+        .value.toLowerCase();
+
+    let productosWeb =
+        document.querySelectorAll(".producto");
+
+
+    productosWeb.forEach(function(producto){
+
+        let nombre =
+            producto.querySelector("h3")
+            .textContent.toLowerCase();
+
+        if(nombre.includes(texto)){
+
+            producto.style.display = "block";
+
+        }else{
+
+            producto.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* FILTROS */
+
+function filtrar(categoria){
+
+    let productosWeb =
+        document.querySelectorAll(".producto");
+
+
+    productosWeb.forEach(function(producto){
+
+        if(
+            categoria === "todos" ||
+            producto.dataset.categoria === categoria
+        ){
+
+            producto.style.display = "block";
+
+        }else{
+
+            producto.style.display = "none";
+
+        }
+
+    });
+
+}
+
+</script>
+
+</body>
+</html>
